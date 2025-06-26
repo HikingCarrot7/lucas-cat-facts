@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Cat Fact & Image</h1>
+
+  @if (loading()) {
+  <app-spinner></app-spinner>
+  } @if (!loading() && !error()) {
+  <div class="cat-card">
+    @if (imageUrl()) {
+    <img [src]="imageUrl()" alt="Cat Image" />
+    }
+    <p>{{ fact() }}</p>
+    <button (click)="refresh()" [disabled]="loading()">Refresh</button>
+  </div>
+  } @if (error()) {
+  <app-error-message [error]="error()"></app-error-message>
+  }
+
+  <footer class="footer">Hecho con ❤️ por ChatGTP</footer>
+</div>
