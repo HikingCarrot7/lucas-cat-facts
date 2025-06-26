@@ -1,59 +1,105 @@
-# CatApp
+---
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+# 🐱 Cat Fact & Image App
 
-## Development server
+**Descripción**
+Aplicación en Angular 19 que:
 
-To start a local development server, run:
+* Obtiene una frase aleatoria de `https://catfact.ninja/fact`
+* Obtiene una imagen con texto incrustado desde `https://cataas.com/cat/says/{text}`
+* Muestra ambos datos en la UI de forma condicional (cargando, error, éxito)
+* Gestiona estado con NgRx usando signals y vinculaciones reactivas
+* Incluye tests básicos para componentes
 
-```bash
-ng serve
+---
+
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── core/           # Servicios y modelos
+│   ├── store/          # NgRx: actions, reducers, effects, selectors
+│   ├── features/
+│   │   └── cat/        # Módulo 'cat' (componentes, contenedores)
+│   ├── shared/         # Componentes reutilizables (spinner, card, error-message)
+|   |__ pages/		# Paginas a renderizas
+│   └── app.module.ts
+├── assets/
+├── environments/
+└── README.md           # Este documento
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## ⚙️ Requisitos y Configuración
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+* Angular 19
+* NgRx 15+ (o la más reciente compatible)
+* Node.js v16+ & npm o yarn
 
 ```bash
-ng generate --help
+git clone <repo>
+cd cat-app
+npm install
+npm start
 ```
 
-## Building
+Abre el navegador en `http://localhost:4200`.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 🧩 Funcionalidades
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. **Consumo API de catfact.ninja**
+   Servicio `CatService.getFact()` devuelve un Observable con la frase del día.
 
-## Running unit tests
+2. **Consumo API de cataas.com**
+   Servicio `CatService.getCatImage(text: string)` devuelve URL:
+   `https://cataas.com/cat/says/${encodeURIComponent(text)}`
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+3. **State Management con NgRx**
 
-```bash
-ng test
-```
+   * **Actions**: `loadFact`, `loadFactSuccess`, `loadFactFailure`
+   * **Reducer**: maneja estados `{ loading, fact, imageUrl, error }`
+   * **Effects**: escucha `loadFact`, invoca APIs, dispara acciones de éxito o fallo
+   * **Selectors**: extraen piezas del estado para el componente
 
-## Running end-to-end tests
+4. **Signals & bindings**
 
-For end-to-end (e2e) testing, run:
+   * Componente contenedor usa `selectSignal` para exponerse como signals.
+   * Template utiliza directivas `*ngIf`, `[src]`, `disabled`, `ngIf; else`, etc.
 
-```bash
-ng e2e
-```
+5. **Renderizado condicional**
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+   * Mostrar spinner mientras carga
+   * Mostrar imagen + frase al éxito
+   * Mostrar mensaje de error si ocurre fallo
+   * Botón “Refrescar” activa nueva petición
 
-## Additional Resources
+6. **Tests mínimos**
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+   * Servicio: mock HTTP y cubrir lógica del consumo
+   * Efecto: testear disparo de acciones y manejo de errores
+   * Componente: test de renderizado (estado cargando, éxito, error)
+
+---
+
+
+## ✅ Checklist
+
+* [x] Angular 19 o 20
+* [x] NgRx: estado, efectos, selectors
+* [x] Signals en componentes
+* [x] Consumo de ambas APIs
+* [x] Renderizado condicional
+* [x] Tests: servicio, efecto, componente
+
+---
+
+## ℹ️ Observaciones
+
+* `cataas.com` genera imagen dinámicamente: no requiere descarga previa.
+* Puedes extender el proyecto con más componentes o tests.
+
+---
