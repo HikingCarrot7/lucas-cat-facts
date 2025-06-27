@@ -1,5 +1,3 @@
----
-
 # 🐱 Cat Fact & Image App
 
 **Descripción**
@@ -10,8 +8,6 @@ Aplicación en Angular 19 que:
 * Muestra ambos datos en la UI de forma condicional (cargando, error, éxito)
 * Gestiona estado con NgRx usando signals y vinculaciones reactivas
 * Incluye tests básicos para componentes
-
----
 
 ## 📁 Estructura del Proyecto
 
@@ -30,8 +26,6 @@ src/
 └── README.md           # Este documento
 ```
 
----
-
 ## ⚙️ Requisitos y Configuración
 
 * Angular 19
@@ -46,8 +40,6 @@ npm start
 ```
 
 Abre el navegador en `http://localhost:4200`.
-
----
 
 ## 🧩 Funcionalidades
 
@@ -83,9 +75,6 @@ Abre el navegador en `http://localhost:4200`.
    * Efecto: testear disparo de acciones y manejo de errores
    * Componente: test de renderizado (estado cargando, éxito, error)
 
----
-
-
 ## ✅ Checklist
 
 * [x] Angular 19 o 20
@@ -95,11 +84,7 @@ Abre el navegador en `http://localhost:4200`.
 * [x] Renderizado condicional
 * [x] Tests: servicio, efecto, componente
 
----
-
 ## ℹ️ Observaciones
 
 * `cataas.com` genera imagen dinámicamente: no requiere descarga previa.
 * Puedes extender el proyecto con más componentes o tests.
-
----
